@@ -1,98 +1,49 @@
-import { tektur } from "@/Utils/fonts";
-import { motion } from "framer-motion";
-import { MouseEventHandler } from "react";
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
 
-type buttonVarients = "primary" | "secondary" | "outline" | "ghost";
-type buttonSizes = "sm" | "md" | "lg" | "xl";
-type buttonProps = {
-  size: buttonSizes;
-  text: string;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
-};
+import { cn } from "@/lib/utils";
 
-const sizeClasses = {
-  sm: "text-sm md:text-xl",
-  md: "text-md md:text-2xl",
-  lg: "text-lg md:text-3xl",
-  xl: "text-xl md:text-4xl",
-};
+const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-9 rounded-md px-3",
+        lg: "h-11 rounded-md px-8",
+        icon: "h-10 w-10",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+);
 
-const defaultClassName = (size: buttonSizes) =>
-  `${sizeClasses[size]} px-4 py-2 rounded-md pointer-events-auto ${tektur.className} text-white`;
-
-function ghostButton({ size, text, onClick }: buttonProps) {
-  return (
-    <button onClick={onClick} className={`${defaultClassName(size)}`}>
-      {text}
-    </button>
-  );
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
 }
 
-function outlinedButton({ size, text, onClick }: buttonProps) {
-  return (
-    <motion.button
-      initial={{
-        scale: 1,
-      }}
-      animate={{
-        background: ["var(--accent-color)", "rgba(0,0,0,0)", "var(--accent-color)"],
-      }}
-      transition={{
-        duration: 3,
-        repeat: Infinity,
-        ease: "easeInOut",
-      }}
-      whileTap={{ scale: 0.8, transition: { duration: 0.3, type: "spring" } }}
-      onClick={onClick}
-      className={`${defaultClassName(size)} border-2 border-(--accent-color) bg-(--accent-color)`}
-    >
-      {text}
-    </motion.button>
-  );
-}
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button";
+    return (
+      <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
+    );
+  }
+);
+Button.displayName = "Button";
 
-function secondaryButton({ size, text, onClick }: buttonProps) {
-  return (
-    <button onClick={onClick} className={`${defaultClassName(size)} bg-(--secondary-color)`}>
-      {text}
-    </button>
-  );
-}
-
-function primaryButton({ size, text, onClick }: buttonProps) {
-  return (
-    <button
-      onClick={onClick}
-      className={`${defaultClassName(
-        size
-      )} bg-(--primary-color) border-2 border-white font-semibold`}
-    >
-      {text}
-    </button>
-  );
-}
-
-function Button({
-  variant,
-  size,
-  text,
-  onClick,
-}: {
-  variant: buttonVarients;
-  size: buttonSizes;
-  text: string;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
-}) {
-  const buttonMapping = {
-    primary: primaryButton,
-    secondary: secondaryButton,
-    outline: outlinedButton,
-    ghost: ghostButton,
-  };
-
-  const CurrentButton = buttonMapping[variant];
-
-  return <CurrentButton size={size} text={text} onClick={onClick} />;
-}
-
-export default Button;
+export { Button, buttonVariants };
