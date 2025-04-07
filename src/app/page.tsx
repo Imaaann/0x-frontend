@@ -1,9 +1,17 @@
-import Squares from "@/blocks/Backgrounds/Squares/Squares";
+import LandingBackground from "@/Components/LandingBackground";
+import Title from "@/Components/Title";
+import MainIcon from "@/Components/MainIcon";
+import LandingCTA from "@/Components/LandingCTA";
 
 export default function Home() {
   return (
-    <div style={{ height: "100vh", width: "100vw" }}>
-      <Squares />
-    </div>
+    <>
+      <div className="flex flex-col justify-around items-center h-screen w-screen pointer-events-none">
+        <MainIcon />
+        <Title />
+        <LandingCTA />
+      </div>
+      <LandingBackground />
+    </>
   );
 }
