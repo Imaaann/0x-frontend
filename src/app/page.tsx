@@ -4,6 +4,7 @@ import MainIcon from "@/components/MainIcon";
 import { Button } from "@/components/ui/button";
 import { tektur } from "@/Utils/fonts";
 import Link from "next/link";
+import { ModeToggle } from "@/components/ui/mode-toggle";
 
 export default function Home() {
   return (
@@ -19,6 +20,9 @@ export default function Home() {
         >
           <Link href="/store">Dive In</Link>
         </Button>
+        <span className="pointer-events-auto">
+          <ModeToggle />
+        </span>
       </div>
       <LandingBackground />
     </>
