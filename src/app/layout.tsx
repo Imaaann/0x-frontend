@@ -13,7 +13,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="pointer-events-none">{children}</body>
+      <body className="pointer-events-none" cz-shortcut-listen="false">
+        {children}
+      </body>
     </html>
   );
 }
