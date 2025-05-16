@@ -2,9 +2,8 @@ import Link from "next/link";
 import MainLogo from "./svg/main-logo";
 import { Button } from "./ui/button";
 import { tektur } from "@/Utils/fonts";
-import { Input } from "./ui/input";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 function Header() {
   /**
@@ -24,6 +23,9 @@ function Header() {
         <Link href={"/"}>
           <MainLogo height={50} width={50} />
         </Link>
+        <Avatar>
+          <AvatarFallback>IM</AvatarFallback>
+        </Avatar>
         <Button
           asChild
           size={"lg"}
@@ -40,13 +42,6 @@ function Header() {
         >
           <Link href={"/personal/games"}>Library</Link>
         </Button>
-      </div>
-      <div className="flex justify-around items-center px-8 min-w-lg gap-4">
-        <Input type="text" placeholder="Search..." />
-        <Avatar>
-          <AvatarImage src="https://github.com/imaaann.png" alt="@imaaann" />
-          <AvatarFallback>IM</AvatarFallback>
-        </Avatar>
       </div>
     </header>
   );

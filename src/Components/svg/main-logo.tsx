@@ -19,8 +19,8 @@ function MainLogo({ height, width }: { height: number; width: number }) {
       />
       <path d="M114.689 80.712V73.704H159.425V80.712H114.689Z" fill={fillColor} />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M73.9108 46.536L55.0948 70.344H64.4068L78.8068 51.624L75 46.536L78.8068 41.544L64.7908 23.4H55.6708L73.9108 46.536ZM80.1508 41.544L84 46.536L80.1508 51.624L94.5508 70.344H103.767L84.9508 46.536L103.287 23.4H94.0708L80.1508 41.544Z"
         fill={fillColor}
       />

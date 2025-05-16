@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import "./globals.css";
 import { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
+import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "0x_ - An indie game shop",
@@ -22,6 +23,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Header />
           {children}
           <Footer />
         </ThemeProvider>
