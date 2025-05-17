@@ -11,7 +11,7 @@ function Footer() {
         <MainLogo height={50} width={50} />
       </Link>
       <Link href={"https://example.com"} className="text-md text-foreground">
-        Back-end Repository
+        Git-Hub Repository
       </Link>
     </footer>
   );
