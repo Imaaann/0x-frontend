@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -24,6 +25,8 @@ const formSchema = z.object({
 });
 
 function Home() {
+  const [signup, setSignup] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,7 +35,11 @@ function Home() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSignup(values: z.infer<typeof formSchema>) {
+    console.log(values);
+  }
+
+  function onLogin(values: z.infer<typeof formSchema>) {
     console.log(values);
   }
 
@@ -41,7 +48,7 @@ function Home() {
       <MainLogo height={80} width={160} />
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(signup ? onSignup : onLogin)}
           className="space-y-6 border border-primary rounded-md p-4 pointer-events-auto"
         >
           <FormField
@@ -73,9 +80,21 @@ function Home() {
               );
             }}
           />
-          <Button type="submit" className="cursor-pointer">
-            Login
-          </Button>
+          <div className="flex flex-row justify-around">
+            <Button type="submit" className="cursor-pointer">
+              {signup ? "signup" : "login"}
+            </Button>
+            <Button
+              type="submit"
+              variant="ghost"
+              className="cursor-pointer"
+              onClick={() => {
+                setSignup((prev) => !prev);
+              }}
+            >
+              {signup ? "Go to login" : "Go to signup"}
+            </Button>
+          </div>
         </form>
       </Form>
     </div>
