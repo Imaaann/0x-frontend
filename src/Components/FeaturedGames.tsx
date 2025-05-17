@@ -6,7 +6,6 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-import mockData from "@/../public/MOCK_DATA.json";
 import Image from "next/image";
 import { tektur } from "@/Utils/fonts";
 import { Button } from "./ui/button";
@@ -48,11 +47,11 @@ function FeaturedGame({ gameName, gamePrice, description, imageURL, downloadURL 
   );
 }
 
-function FeaturedGames() {
+function FeaturedGames({ games }: { games: Game[] }) {
   return (
     <Carousel className="w-full max-w-5xl pointer-events-auto my-4">
       <CarouselContent>
-        {mockData.map((data, index) => {
+        {games.map((data, index) => {
           return (
             <CarouselItem key={index}>
               <FeaturedGame

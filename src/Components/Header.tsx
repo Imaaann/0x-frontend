@@ -40,7 +40,7 @@ function Header() {
           variant={"link"}
           className={`${tektur.className} text-lg text-primary-foreground hover:text-primary`}
         >
-          <Link href={"/personal/games"}>Library</Link>
+          <Link href={"/library"}>Library</Link>
         </Button>
       </div>
     </header>
